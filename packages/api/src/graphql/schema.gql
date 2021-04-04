@@ -1,0 +1,29 @@
+type Query {
+  getServer(id: String!): ServerType!
+  getAllPrefixes: [SimpleServerType!]!
+}
+
+"""Provides settings for each server"""
+type ServerType {
+  guildId: String!
+  memberCounter: String
+  prefix: String
+  dateOfEntry: DateTime
+  lastUpdated: DateTime
+  disabledGroups: [String!]!
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+"""Provides just the prefix and ID of a server"""
+type SimpleServerType {
+  guildId: String!
+  prefix: String
+}
+
+type Mutation {
+  modifyServer(prefix: String, id: String!): ServerType!
+}

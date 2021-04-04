@@ -1,0 +1,16 @@
+{
+    "name": "@cable-inc/emelbirb",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "lerna run start --parallel",
+        "postinstall": "lerna bootstrap"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "lerna": "^4.0.0"
+    }
+}

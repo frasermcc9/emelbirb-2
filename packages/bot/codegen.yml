@@ -1,0 +1,10 @@
+overwrite: true
+schema: ../api/src/graphql/schema.gql
+documents: "./src/**/*.{ts,tsx}"
+generates:
+  src/types/types.ts:
+    plugins:
+      - typescript
+  src/types/schema.json:
+    plugins:
+      - fragment-matcher

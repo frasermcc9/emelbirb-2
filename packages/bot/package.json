@@ -1,0 +1,54 @@
+{
+  "name": "@emelbirb/bot",
+  "version": "0.0.0",
+  "description": "Discord bot for emelbirb",
+  "author": "Fraser McCallum <fraser@themccallums.net.nz>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "build/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "run-p watch daemon",
+    "watch": "tsc --watch",
+    "daemon": "nodemon",
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "rimraf ./build && tsc",
+    "prestart": "npm run build",
+    "generate": "rimraf src/graphql/typings && apollo client:codegen --target=typescript --localSchemaFile=../api/src/graphql/schema.gql --outputFlat src/graphql/typings && npm run introspect",
+    "introspect": "graphql-codegen --config codegen.yml"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.3.13",
+    "@frasermcc/overcord": "^0.4.3",
+    "@graphql-codegen/cli": "^1.17.0",
+    "@graphql-codegen/fragment-matcher": "^1.17.0",
+    "@graphql-codegen/introspection": "^1.17.0",
+    "@graphql-codegen/typescript": "^1.17.0",
+    "apollo-link-error": "^1.1.13",
+    "chalk": "^3.0.0",
+    "cross-fetch": "^3.1.4",
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
+    "figlet": "^1.5.0",
+    "graphql": "^15.5.0",
+    "npm-run-all": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.2.1",
+    "@types/node": "^14.14.31",
+    "chokidar-cli": "^2.1.0",
+    "nodemon": "^2.0.7",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.2"
+  }
+}

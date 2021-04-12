@@ -4,15 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetAllPrefixes
+// GraphQL query operation: GetInitialSettings
 // ====================================================
 
-export interface GetAllPrefixes_getAllPrefixes {
+export interface GetInitialSettings_getInitialSettings {
   __typename: "SimpleServerType";
   guildId: string;
   prefix: string | null;
+  disabledGroups: string[];
 }
 
-export interface GetAllPrefixes {
-  getAllPrefixes: GetAllPrefixes_getAllPrefixes[];
+export interface GetInitialSettings {
+  getInitialSettings: GetInitialSettings_getInitialSettings[];
 }

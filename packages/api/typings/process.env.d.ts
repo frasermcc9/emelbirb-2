@@ -13,8 +13,10 @@
 // limitations under the License.
 
 declare namespace NodeJS {
-  export interface ProcessEnv {
-    DATABASE_NAME: string;
-    DATABASE_URI: string;
-  }
+    export interface ProcessEnv {
+        DATABASE_NAME: string;
+        DATABASE_URI: string;
+        DISCORD_TOKEN: string;
+        BOT_URI: string;
+    }
 }

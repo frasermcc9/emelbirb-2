@@ -1,12 +1,13 @@
 import { gql } from "@apollo/client/core";
 
-export { QUERY_ALL_PREFIXES };
+export { QUERY_INITIAL_SETTINGS };
 
-const QUERY_ALL_PREFIXES = gql`
-  query GetAllPrefixes {
-    getAllPrefixes {
+const QUERY_INITIAL_SETTINGS = gql`
+  query GetInitialSettings {
+    getInitialSettings {
       guildId
       prefix
+      disabledGroups
     }
   }
 `;

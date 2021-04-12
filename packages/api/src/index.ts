@@ -9,6 +9,10 @@ import { writeFileSync } from "fs";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import MassResolver from "./graphql/resolvers/MassResolver";
+import client, { connectToDiscord } from "./bot";
+import DiscordResolver from "./graphql/resolvers/DiscordResolver";
+import cors from "cors";
+import GlobalResolver from "./graphql/resolvers/GlobalResolver";
 dotenv.config();
 
 export const DatabaseConnection = {
@@ -20,6 +24,7 @@ export const DatabaseConnection = {
     const requiredEnvs: (keyof NodeJS.ProcessEnv)[] = [
         "DATABASE_NAME",
         "DATABASE_URI",
+        "DISCORD_TOKEN",
     ];
 
     let terminate = false;
@@ -38,8 +43,15 @@ export const DatabaseConnection = {
         );
     }
 
+    await connectToDiscord();
+
     const schema = await buildSchema({
-        resolvers: [ServerResolver, MassResolver],
+        resolvers: [
+            ServerResolver,
+            MassResolver,
+            DiscordResolver,
+            GlobalResolver,
+        ],
     });
 
     const printedSchema = printSchema(schema);
@@ -48,6 +60,7 @@ export const DatabaseConnection = {
     connect();
 
     const app = express();
+    app.use(cors());
 
     const apolloServer = new ApolloServer({
         schema,

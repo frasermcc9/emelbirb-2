@@ -1,23 +1,18 @@
 import { Field, ID, ObjectType } from "type-graphql";
+import { GlobalProps } from "../../models/global/global.model";
 import { ServerProps } from "../../models/server/server.model";
 
 @ObjectType({ description: "Provides settings for the entire bot" })
-export class ServerType implements ServerProps {
-    @Field((type) => ID)
-    guildId!: string;
-
-    @Field((type) => String, { nullable: true })
-    memberCounter!: string | undefined;
-
-    @Field((type) => String, { nullable: true })
-    prefix?: string | undefined;
-
+export class GlobalType {
     @Field((type) => Date, { nullable: true })
     dateOfEntry?: Date;
 
     @Field((type) => Date, { nullable: true })
     lastUpdated?: Date;
 
-    @Field((typed) => [String])
-    disabledGroups!: string[];
+    @Field((type) => [String], { nullable: true })
+    commandGroups?: string[];
+
+    @Field((type) => [String], { nullable: true })
+    commandDescriptions?: string[];
 }

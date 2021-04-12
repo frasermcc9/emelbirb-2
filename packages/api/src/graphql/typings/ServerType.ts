@@ -22,11 +22,14 @@ export class ServerType implements ServerProps {
     disabledGroups!: string[];
 }
 
-@ObjectType({ description: "Provides just the prefix and ID of a server" })
+@ObjectType({ description: "Provides startup settings of a guild" })
 export class SimpleServerType {
     @Field((type) => String)
     guildId!: string;
 
     @Field((type) => String, { nullable: true })
     prefix?: string | undefined;
+
+    @Field((type) => [String], { nullable: false })
+    disabledGroups!: string[];
 }

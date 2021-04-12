@@ -1,6 +1,9 @@
 type Query {
   getServer(id: String!): ServerType!
-  getAllPrefixes: [SimpleServerType!]!
+  fetchLogs(offset: Float, id: String!): LogArgs
+  getInitialSettings: [SimpleServerType!]!
+  getDiscordGuild(id: String!): DiscordGuildType!
+  fetchModules: GlobalType!
 }
 
 """Provides settings for each server"""
@@ -18,12 +21,63 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
-"""Provides just the prefix and ID of a server"""
+type LogArgs {
+  invokingUser: String
+  reason: String
+  message: String
+  affectedUsers: [String!]
+  time: DateTime
+  guild: String!
+  command: String
+  importance: Int
+}
+
+"""Provides startup settings of a guild"""
 type SimpleServerType {
   guildId: String!
   prefix: String
+  disabledGroups: [String!]!
+}
+
+"""Discord guild parameters"""
+type DiscordGuildType {
+  id: ID!
+  name: String!
+  memberCount: Int!
+  icon: String
+  voiceChannelCount: Int!
+  textChannelCount: Int!
+  createdTimestamp: Float
+  region: String!
+  premiumSubscriptionCount: Int
+  roleCount: Int!
+  owner: DiscordUserType
+}
+
+"""Discord user parameters"""
+type DiscordUserType {
+  id: ID!
+  username: String!
+  avatar: String
+  createdTimestamp: Float!
+  bot: Boolean!
+}
+
+"""Provides settings for the entire bot"""
+type GlobalType {
+  dateOfEntry: DateTime
+  lastUpdated: DateTime
+  commandGroups: [String!]
+  commandDescriptions: [String!]
 }
 
 type Mutation {
   modifyServer(prefix: String, id: String!): ServerType!
+  toggleBlocked(toggleBlocked: String!, id: String!): ServerType!
+  log(invokingUser: String, reason: String, message: String, affectedUsers: [String!], time: DateTime, guild: String!, command: String, importance: Int): NullType!
+  updateModules(modules: [String!]!, descriptions: [String!]!): GlobalType!
+}
+
+type NullType {
+  never: Boolean
 }

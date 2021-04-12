@@ -5,7 +5,7 @@ import { SimpleServerType } from "../typings/ServerType";
 @Resolver(SimpleServerType)
 export default class MassResolver {
     @Query((returns) => [SimpleServerType])
-    async getAllPrefixes() {
+    async getInitialSettings() {
         const guilds = await ServerCollection.find();
         return guilds;
     }

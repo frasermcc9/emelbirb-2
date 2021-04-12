@@ -8,7 +8,6 @@ import {
 import { Message } from "discord.js";
 import GraphClient from "../../apollo";
 import { MUTATE_GUILD, QUERY_GUILD } from "../../graphql/functions/Server";
-import { GetServer, GetServerVariables } from "../../graphql/typings/GetServer";
 import {
   ModifyServer,
   ModifyServerVariables,

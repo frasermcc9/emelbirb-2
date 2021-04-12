@@ -1,15 +1,9 @@
 import { Schema } from "mongoose";
-import methods from "./server.functions";
-import statics from "./server.statics";
+import methods from "./global.functions";
+import statics from "./global.statics";
 
 const ServerSettingsSchema = new Schema({
-    guildId: { type: String, unique: true },
-    memberCounter: { type: String, required: false },
-    prefix: { type: String, required: false },
-    disabledGroups: { type: [String] },
-    logs: {
-        type: [Schema.Types.Mixed],
-    },
+    commandGroups: { type: Map },
 
     dateOfEntry: {
         type: Date,

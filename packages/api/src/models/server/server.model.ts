@@ -13,6 +13,7 @@ export interface ServerProps {
     dateOfEntry?: Date;
     lastUpdated?: Date;
     disabledGroups: string[];
+    logs?: [{ [K: string]: any }];
 }
 export interface ServerDocument extends ServerProps, Document {
     setLastUpdated(this: ServerDocument): Promise<void>;
@@ -25,6 +26,18 @@ export interface ServerDocument extends ServerProps, Document {
         this: ServerDocument,
         updates: { [K in keyof ServerDocument]?: ServerDocument[K] }
     ): Promise<void>;
+    toggleBlocked(
+        this: ServerDocument,
+        { blocked }: { blocked: string }
+    ): Promise<boolean>;
+    addLog: (
+        this: ServerDocument,
+        logDetails: { [K: string]: any }
+    ) => Promise<void>;
+    fetchLogs: (
+        this: ServerDocument,
+        { offset }: { offset?: number }
+    ) => Promise<any>;
 }
 export interface ServerModel extends Model<ServerDocument> {
     findOneOrCreate(

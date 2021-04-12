@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.3.14",
+    "@graphql-codegen/cli": "^1.17.0",
+    "@graphql-codegen/fragment-matcher": "^1.17.0",
+    "@graphql-codegen/introspection": "^1.17.0",
+    "@graphql-codegen/typescript": "^1.17.0",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -10,22 +17,51 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "apollo-link-error": "^1.1.13",
+    "babel-loader": "8.1.0",
+    "cross-fetch": "^3.1.4",
+    "dayjs": "^1.10.4",
+    "discord.js": "^12.5.3",
+    "get-user-locale": "^1.4.0",
+    "graphql": "^15.5.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "storybook-addon-material-ui": "^0.9.0-alpha.24",
+    "tailwindcss": "^2.1.1",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm-run-all build:css --parallel watch:css start:react",
+    "storybook": "start-storybook -p 6006 -s public",
+    "sb-component": "node ./scripts/sb-component.js",
+    "generate": "rimraf src/graphql/typings && apollo client:codegen --target=typescript --localSchemaFile=../api/src/graphql/schema.gql --outputFlat src/graphql/typings && npm run introspect",
+    "introspect": "graphql-codegen --config codegen.yml",
+    "start:react": "react-scripts start",
     "build": "react-scripts build",
+    "prebuild": "cross-env NODE_ENV=production run-s build:css",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:css": "cross-env NODE_ENV=production postcss src/styles/tailwind.css -o src/styles/tailwind.output.css",
+    "watch:css": "cross-env NODE_ENV=development postcss ./src/styles/tailwind.css -o ./src/styles/tailwind.output.css -w",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -39,5 +75,27 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.2.5",
+    "@storybook/addon-essentials": "^6.2.5",
+    "@storybook/addon-links": "^6.2.5",
+    "@storybook/node-logger": "^6.2.5",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.2.5",
+    "@tailwindcss/jit": "^0.1.18",
+    "@types/prompts": "^2.0.10",
+    "@types/react-router-dom": "^5.1.7",
+    "autoprefixer": "^10.2.5",
+    "chokidar-cli": "^2.1.0",
+    "colors": "^1.4.0",
+    "cross-env": "^7.0.3",
+    "cssnano": "^4.1.10",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.10",
+    "postcss-cli": "^8.3.1",
+    "prompts": "^2.4.1",
+    "storybook-addon-react-context": "^1.1.2",
+    "storybook-react-context": "^0.2.5"
   }
 }
